@@ -8,12 +8,12 @@ function Protected({children}) {
     const returnUrl = usePathname();
 
     useLayoutEffect(() => {
-        if (!loading && !user){ 
+        if (!loading && !user && returnUrl !== '/user/signout'){ 
             redirect(`/user/signin?returnUrl=${returnUrl}`);
         }
     }, [user, loading, returnUrl]);
 
-    if (loading || !user) {
+    if (loading || (!user && returnUrl !== '/user/signout')) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[50vh] text-center">
                 <h1 className="text-3xl font-semibold text-gray-800 mb-4">Sprawdzanie uprawnień...</h1>
